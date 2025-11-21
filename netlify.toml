@@ -1,0 +1,13 @@
+[build]
+  base = "frontend"
+  command = "corepack enable pnpm && pnpm install --frozen-lockfile && pnpm run build"
+  publish = "dist"
+
+[build.environment]
+  PNPM_VERSION = "10.14.0"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
