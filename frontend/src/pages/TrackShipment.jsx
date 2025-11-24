@@ -87,7 +87,7 @@ export default function TrackShipment() {
 
     return (
         <div className="min-h-screen">
-            <main className="pt-20 py-20 text-white bg-red-100/10 w-screen relative left-1/2 -translate-x-1/2">
+            <main className="pt-30 py-20 text-white bg-red-100/10 w-screen relative left-1/2 -translate-x-1/2">
                   {/* Hero Section */}
                 <section className="max-w-6xl mx-auto px-4">
                 <div className="container mx-auto px-4">

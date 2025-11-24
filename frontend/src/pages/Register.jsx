@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Register () {
     const [form, setForm] = useState({ name: "", email: "", password: "" });
     const [message, setMessage] = useState("");
-
+ 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {

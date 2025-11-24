@@ -5,7 +5,7 @@ import Testimonials from "../components/Testimonials";
 import ServicesPreview from "../components/ServicesPreview";
 
 function Home () {
-    return (
+    return ( 
         <div>
             <section className="relative left-1/2 -translate-x-1/2 w-screen bg-maroon min-h-[90vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import { LogOut, Menu, UserRound, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo, useState } from "react"; 
 import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
@@ -22,13 +22,14 @@ const Navbar = () => {
         logout();
         navigate("/", { replace: true });
     };
-
+//max-w-full mx-auto px-6 sm:px-6 lg:px-8 
+//relative container mx-auto px-6 left-0 right-0 z-50 backdrop-blur-sm shadow-md
     return(
-        <nav className="relative top-0 left-0 right-0 z-50 backdrop-blur-sm bg-white shadow-md">
-            <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-white backdrop-blur-sm shadow">
+            <div className="container mx-auto px-4">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo on the left */}
-                    <Link to="/" className="flex items-center gap-3 group shrink-0">
+                    <Link to="/" className="flex items-center gap-3">
                         <img src={logo} className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"/>
                     </Link>
 
