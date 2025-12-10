@@ -13,7 +13,23 @@ dotenv.config ();
 connectDB();
 
 const app = express();
-app.use(cors());
+
+// Enhanced CORS configuration to support localhost and live deployment
+const corsOptions = {
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:3000",
+    "https://quickandquality.onrender.com",
+    "https://www.quickandquality.onrender.com",
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Handle preflight requests
 app.use(morgan("dev"));
 app.use(express.json());
 
@@ -28,5 +44,9 @@ app.use("/api/shipments", shipmentRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/services", serviceRoutes);
 
+// Use Render's assigned port or default to 5000 for local dev
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+});
