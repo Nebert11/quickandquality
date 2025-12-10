@@ -23,10 +23,8 @@ const Navbar = () => {
         logout();
         navigate("/", { replace: true });
     };
-//max-w-full mx-auto px-6 sm:px-6 lg:px-8 
-//relative container mx-auto px-6 left-0 right-0 z-50 backdrop-blur-sm shadow-md
     return(
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-white backdrop-blur-sm shadow">
+        <nav className="relative top-0 left-0 right-0 z-50 bg-white backdrop-blur-sm shadow">
             <div className="container mx-auto px-4">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo on the left */}
