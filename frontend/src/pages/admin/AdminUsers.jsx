@@ -33,41 +33,43 @@ export default function AdminUsers() {
     };
 
     return (
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
             <Sidebar />
-            <div className="ml-64 flex-1 p-6">
-                <h1 className="text-3xl font-bold text-red-900 mb-6">Manage Users</h1>
+            <div className="w-full md:ml-64 flex-1 p-4 md:p-6 mt-12 md:mt-0">
+                <h1 className="text-2xl md:text-3xl font-bold text-red-900 mb-6">Manage Users</h1>
 
                 {loading ? (
                     <p>Loading...</p>
                 ) : (
-                    <table className="w-full border-collapse border">
-                        <thead className="bg-gray-200">
-                            <tr>
-                                <th className="border p-2">Name</th>
-                                <th className="border p-2">Email</th>
-                                <th className="border p-2">Role</th>
-                                <th className="border p-2">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {users.map((user) => (
-                                <tr key={user._id} className="hover:bg-gray-100">
-                                    <td className="border p-2">{user.name}</td>
-                                    <td className="border p-2">{user.email}</td>
-                                    <td className="border p-2">{user.role || "customer"}</td>
-                                    <td className="border p-2 space-x-2">
-                                        <button
-                                            onClick={() => handleDelete(user._id)}
-                                            className="bg-red-600 text-white px-3 py-1 rounded text-sm"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
+                    <div className="overflow-x-auto">
+                        <table className="w-full border-collapse border text-sm">
+                            <thead className="bg-gray-200">
+                                <tr>
+                                    <th className="border p-2">Name</th>
+                                    <th className="border p-2 hidden md:table-cell">Email</th>
+                                    <th className="border p-2">Role</th>
+                                    <th className="border p-2">Actions</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {users.map((user) => (
+                                    <tr key={user._id} className="hover:bg-gray-100">
+                                        <td className="border p-2 font-semibold text-xs md:text-sm">{user.name}</td>
+                                        <td className="border p-2 hidden md:table-cell text-xs md:text-sm">{user.email}</td>
+                                        <td className="border p-2 text-xs md:text-sm">{user.role || "customer"}</td>
+                                        <td className="border p-2">
+                                            <button
+                                                onClick={() => handleDelete(user._id)}
+                                                className="bg-red-600 text-white px-2 md:px-3 py-1 rounded text-xs"
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 )}
             </div>
         </div>

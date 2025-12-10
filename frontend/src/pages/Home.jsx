@@ -24,14 +24,14 @@ function Home () {
             <section className="relative left-1/2 -translate-x-1/2 w-screen bg-maroon min-h-[90vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img src={heroImage} className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-red-900 opacity-90"></div>
+                    <div className="absolute inset-0 bg-yellow-700 opacity-90"></div>
                 </div>
                 {/* Main content*/}
                 <div className="container mx-auto px-6 py-12 relative z-10">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
-                        <span className="text-xl font-semibold text-gray-100">Quick And Quality</span>
+                        <span className="text-2xl font-semibold text-purple-400">Quick And Quality</span>
                     </div>
-                    <h1 className="text-5xl md:text-6xl font-bold leading-tight text-white">Delivering Beyond <br /> <span className="text-red-600">Borders</span></h1>
+                    <h1 className="text-5xl md:text-6xl font-bold leading-tight text-white">Delivering Beyond <br /> <span className="text-purple-600">Borders</span></h1>
                     <p className="text-xl text-gray-100 leading-tight mt-4">Fast, reliable, and secure delivery across Kenya and beyond. Same-day delivery in Nairobi and international coverage for all your shipping needs.</p>
 
                     <div className="flex flex-wrap gap-4 pt-6">

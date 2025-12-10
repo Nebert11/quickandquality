@@ -4,12 +4,12 @@ import logo from "../assets/logo.svg";
 
 const Footer = () => {
     return (
-        <footer className="bg-maroon text-white">
+        <footer className="bg-yellow-700 text-white">
             <div className="container mx-auto px-6 py-12">
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                     <div>
                         <div className="flex items-center gap-3 mb-4">
-                            <img src={logo} alt="Quick and Quality" className="h-12 w-auto"/>
+                            <img src={logo} alt="Quick and Quality" className="h-14 md:h-20 w-auto"/>
                         </div>
                         <p className="text-sm opacity-90 mb-4">Delivering Beyond Borders - Your trusted partner for international courier and logistics services.</p>
                     </div>

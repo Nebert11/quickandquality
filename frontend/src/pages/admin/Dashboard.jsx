@@ -49,43 +49,43 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
             <Sidebar />
-            <div className=" flex-1 p-6">
-                <h1 className="text-3xl font-bold text-red-900 mb-6">Admin Dashboard</h1>
-                <p>Welcome back, Admin!</p>
+            <div className="w-full flex-1 p-4 md:p-6 mt-12 md:mt-0">
+                <h1 className="text-2xl md:text-3xl font-bold text-red-900 mb-2 md:mb-6">Admin Dashboard</h1>
+                <p className="text-sm md:text-base mb-4 md:mb-6">Welcome back, Admin!</p>
 
                 {stats.error && (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6 text-sm">
                         {stats.error}
                     </div>
                 )}
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
-                    <div className="bg-white shadow p-4 rounded">
-                        <h2 className="text-xl font-bold">Total Shipments</h2>
-                        <p className="text-gray-600 text-2xl font-semibold">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-6">
+                    <div className="bg-white shadow p-4 md:p-6 rounded">
+                        <h2 className="text-lg md:text-xl font-bold text-gray-800">Total Shipments</h2>
+                        <p className="text-gray-600 text-2xl md:text-3xl font-semibold mt-2">
                             {stats.loading ? "..." : stats.totalShipments}
                         </p>
                     </div>
 
-                    <div className="bg-white shadow p-4 rounded">
-                        <h2 className="text-xl font-bold">Active Users</h2>
-                        <p className="text-gray-600 text-2xl font-semibold">
+                    <div className="bg-white shadow p-4 md:p-6 rounded">
+                        <h2 className="text-lg md:text-xl font-bold text-gray-800">Active Users</h2>
+                        <p className="text-gray-600 text-2xl md:text-3xl font-semibold mt-2">
                             {stats.loading ? "..." : stats.activeUsers}
                         </p>
                     </div>
 
-                    <div className="bg-white shadow p-4 rounded">
-                        <h2 className="text-xl font-bold">Pending Deliveries</h2>
-                        <p className="text-gray-600 text-2xl font-semibold">
+                    <div className="bg-white shadow p-4 md:p-6 rounded">
+                        <h2 className="text-lg md:text-xl font-bold text-gray-800">Pending Deliveries</h2>
+                        <p className="text-gray-600 text-2xl md:text-3xl font-semibold mt-2">
                             {stats.loading ? "..." : stats.pendingDeliveries}
                         </p>
                     </div>
 
-                    <div className="bg-white shadow p-4 rounded">
-                        <h2 className="text-xl font-bold">New Messages</h2>
-                        <p className="text-gray-600 text-2xl font-semibold">
+                    <div className="bg-white shadow p-4 md:p-6 rounded">
+                        <h2 className="text-lg md:text-xl font-bold text-gray-800">New Messages</h2>
+                        <p className="text-gray-600 text-2xl md:text-3xl font-semibold mt-2">
                             {stats.loading ? "..." : stats.newMessages}
                         </p>
                     </div>

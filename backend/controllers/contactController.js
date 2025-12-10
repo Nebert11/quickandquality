@@ -34,3 +34,17 @@ export const deleteContact = async (req, res) => {
         res.status(500).json({ message: error.message });   
     }
 };
+
+//Mark message as attended (admin only)
+export const markAttended = async (req, res) => {
+    try {
+        const contact = await Contact.findById(req.params.id);
+        if(!contact) return res.status(404).json({ message: "Message not found" });
+
+        contact.attended = true;
+        await contact.save();
+        res.json({ message: "Message marked as attended", contact });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};

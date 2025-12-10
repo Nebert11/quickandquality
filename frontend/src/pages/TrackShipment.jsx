@@ -7,6 +7,7 @@ import {
     Truck,
     CheckCircle2,
     Package,
+    Star,
 } from "lucide-react";
 
 export default function TrackShipment() {
@@ -14,6 +15,14 @@ export default function TrackShipment() {
     const [shipment, setShipment] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
+    const [showTestimonialForm, setShowTestimonialForm] = useState(false);
+    const [testimonialSubmitting, setTestimonialSubmitting] = useState(false);
+    const [testimonialForm, setTestimonialForm] = useState({
+        clientName: "",
+        email: "",
+        rating: 5,
+        message: "",
+    });
 
     const handleTrack = async (e) => {
         e.preventDefault();
@@ -35,6 +44,29 @@ export default function TrackShipment() {
             setShipment(null);
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    const handleSubmitTestimonial = async (e) => {
+        e.preventDefault();
+        if (!testimonialForm.clientName.trim() || !testimonialForm.email.trim() || !testimonialForm.message.trim()) {
+            alert("Please fill in all fields");
+            return;
+        }
+
+        try {
+            setTestimonialSubmitting(true);
+            await API.post("/testimonials", {
+                ...testimonialForm,
+                trackingNumber: shipment.trackingNumber,
+            });
+            alert("Thank you for your feedback! Your testimonial has been submitted.");
+            setTestimonialForm({ clientName: "", email: "", rating: 5, message: "" });
+            setShowTestimonialForm(false);
+        } catch (error) {
+            alert("Failed to submit testimonial: " + error.message);
+        } finally {
+            setTestimonialSubmitting(false);
         }
     };
 
@@ -262,6 +294,98 @@ export default function TrackShipment() {
                             <button className="rounded-xl mt-6 border border-gray-300 px-4 py-2 hover:bg-gray-50 transition">
                                 Contact Support
                             </button>
+                        </CardContent>
+                        </Card>
+
+                        <Card className="shadow-elegant border-border">
+                        <CardContent className="p-6">
+                            <h3 className="font-semibold mb-4">Share Your Experience</h3>
+                            <p className="text-muted-foreground mb-4">
+                                Help us improve by sharing your feedback about your delivery experience.
+                            </p>
+                            
+                            {showTestimonialForm ? (
+                                <form onSubmit={handleSubmitTestimonial} className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1">Your Name</label>
+                                        <input
+                                            type="text"
+                                            value={testimonialForm.clientName}
+                                            onChange={(e) => setTestimonialForm({ ...testimonialForm, clientName: e.target.value })}
+                                            className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                                            placeholder="John Doe"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1">Email Address</label>
+                                        <input
+                                            type="email"
+                                            value={testimonialForm.email}
+                                            onChange={(e) => setTestimonialForm({ ...testimonialForm, email: e.target.value })}
+                                            className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                                            placeholder="john@example.com"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium mb-2">Rating</label>
+                                        <div className="flex gap-2">
+                                            {[1, 2, 3, 4, 5].map((star) => (
+                                                <button
+                                                    key={star}
+                                                    type="button"
+                                                    onClick={() => setTestimonialForm({ ...testimonialForm, rating: star })}
+                                                    className="transition"
+                                                >
+                                                    <Star
+                                                        className={`h-6 w-6 ${
+                                                            star <= testimonialForm.rating
+                                                                ? "fill-yellow-400 text-yellow-400"
+                                                                : "text-gray-300"
+                                                        }`}
+                                                    />
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1">Your Feedback</label>
+                                        <textarea
+                                            value={testimonialForm.message}
+                                            onChange={(e) => setTestimonialForm({ ...testimonialForm, message: e.target.value })}
+                                            className="w-full border border-gray-300 rounded-lg px-3 py-2 resize-none"
+                                            rows="4"
+                                            placeholder="Tell us about your experience..."
+                                        />
+                                    </div>
+
+                                    <div className="flex gap-2">
+                                        <button
+                                            type="submit"
+                                            disabled={testimonialSubmitting}
+                                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition disabled:opacity-50"
+                                        >
+                                            {testimonialSubmitting ? "Submitting..." : "Submit Review"}
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowTestimonialForm(false)}
+                                            className="border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 transition"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            ) : (
+                                <button
+                                    onClick={() => setShowTestimonialForm(true)}
+                                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition"
+                                >
+                                    Leave a Review
+                                </button>
+                            )}
                         </CardContent>
                         </Card>
                     </div>

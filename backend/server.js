@@ -8,6 +8,7 @@ import userRoutes from "./routes/userRoutes.js";
 import shipmentRoutes from "./routes/shipmentRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
+import testimonialRoutes from "./routes/testimonialRoutes.js";
 
 dotenv.config ();
 connectDB();
@@ -43,6 +44,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/shipments", shipmentRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/services", serviceRoutes);
+app.use("/api/testimonials", testimonialRoutes);
 
 // Use Render's assigned port or default to 5000 for local dev
 const PORT = process.env.PORT || 5000;

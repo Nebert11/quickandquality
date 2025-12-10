@@ -1,8 +1,29 @@
 import { Star } from "lucide-react";
 import { Card, CardContent} from "../components/ui/card"
+import { useState, useEffect } from "react";
+import API from "../api";
 
 const Testimonials = () => {
-    const testimonials = [
+    const [testimonials, setTestimonials] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchTestimonials();
+    }, []);
+
+    const fetchTestimonials = async () => {
+        try {
+            const { data } = await API.get("/testimonials");
+            setTestimonials(data);
+        } catch (error) {
+            console.log("Failed to fetch testimonials");
+            // Fallback to empty array if API fails
+            setTestimonials([]);
+        }
+        setLoading(false);
+    };
+
+    const fallbackTestimonials = [
         {
             name: "Sarah Omutse",
             company: "Tech Innovations Inc.",
@@ -23,6 +44,8 @@ const Testimonials = () => {
         },
     ];
 
+    const displayTestimonials = testimonials.length > 0 ? testimonials : fallbackTestimonials;
+
     return (
         <section className="py-20 bg-gray-100 w-screen relative left-1/2 -translate-x-1/2">
             <div className="max-w-6xl mx-auto px-6">
@@ -32,7 +55,7 @@ const Testimonials = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {testimonials.map((testimonial, index) => {
+                    {displayTestimonials.map((testimonial, index) => {
                         const numericRating = Number(testimonial.rating);
                         const safeRating = Number.isFinite(numericRating)
                             ? Math.max(0, Math.round(numericRating))
@@ -47,8 +70,8 @@ const Testimonials = () => {
                                 </div>
                                 <p className="text-black mb-4 italic">{testimonial.content}</p>
                                 <div>
-                                    <p className="font-semibold text-gray-700">{testimonial.name}</p>
-                                    <p className="text-sm text-gray-500">{testimonial.company}</p>
+                                    <p className="font-semibold text-gray-700">{testimonial.clientName || testimonial.name}</p>
+                                    <p className="text-sm text-gray-500">{testimonial.company || "Quick & Quality Client"}</p>
                                 </div>
                             </CardContent>
                         </Card>

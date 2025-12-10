@@ -81,11 +81,11 @@ export default function AdminShipments() {
     };
 
     return (
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
             <Sidebar />
-            <div className="ml-64 flex-1 p-6">
-                <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-3xl font-bold text-red-900">Manage Shipments</h1>
+            <div className="w-full md:ml-64 flex-1 p-4 md:p-6 mt-12 md:mt-0">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                    <h1 className="text-2xl md:text-3xl font-bold text-red-900">Manage Shipments</h1>
                     <button
                         onClick={() => {
                             setShowForm(!showForm);
@@ -100,15 +100,15 @@ export default function AdminShipments() {
                                 estimatedDelivery: "",
                             });
                         }}
-                        className="bg-red-700 text-white px-4 py-2 rounded"
+                        className="w-full md:w-auto bg-red-700 text-white px-4 py-2 rounded"
                     >
                         {showForm ? "Cancel" : "Add Shipment"}
                     </button>
                 </div>
 
                 {showForm && (
-                    <form onSubmit={handleSubmit} className="bg-gray-100 p-6 rounded mb-6">
-                        <h2 className="text-xl font-bold mb-4">{editingId ? "Edit Status" : "Create Shipment"}</h2>
+                    <form onSubmit={handleSubmit} className="bg-gray-100 p-4 md:p-6 rounded mb-6 overflow-x-auto">
+                        <h2 className="text-lg md:text-xl font-bold mb-4">{editingId ? "Edit Status" : "Create Shipment"}</h2>
                         {!editingId && (
                             <>
                                 <input
@@ -116,7 +116,7 @@ export default function AdminShipments() {
                                     placeholder="Tracking Number"
                                     value={form.trackingNumber}
                                     onChange={(e) => setForm({ ...form, trackingNumber: e.target.value })}
-                                    className="w-full p-2 border rounded mb-3"
+                                    className="w-full p-2 border rounded mb-3 text-sm"
                                     required
                                 />
                                 <input
@@ -124,41 +124,41 @@ export default function AdminShipments() {
                                     placeholder="Sender Name"
                                     value={form.senderName}
                                     onChange={(e) => setForm({ ...form, senderName: e.target.value })}
-                                    className="w-full p-2 border rounded mb-3"
+                                    className="w-full p-2 border rounded mb-3 text-sm"
                                 />
                                 <input
                                     type="text"
                                     placeholder="Receiver Name"
                                     value={form.receiverName}
                                     onChange={(e) => setForm({ ...form, receiverName: e.target.value })}
-                                    className="w-full p-2 border rounded mb-3"
+                                    className="w-full p-2 border rounded mb-3 text-sm"
                                 />
                                 <input
                                     type="text"
                                     placeholder="Origin"
                                     value={form.origin}
                                     onChange={(e) => setForm({ ...form, origin: e.target.value })}
-                                    className="w-full p-2 border rounded mb-3"
+                                    className="w-full p-2 border rounded mb-3 text-sm"
                                 />
                                 <input
                                     type="text"
                                     placeholder="Destination"
                                     value={form.destination}
                                     onChange={(e) => setForm({ ...form, destination: e.target.value })}
-                                    className="w-full p-2 border rounded mb-3"
+                                    className="w-full p-2 border rounded mb-3 text-sm"
                                 />
                                 <input
                                     type="date"
                                     value={form.estimatedDelivery}
                                     onChange={(e) => setForm({ ...form, estimatedDelivery: e.target.value })}
-                                    className="w-full p-2 border rounded mb-3"
+                                    className="w-full p-2 border rounded mb-3 text-sm"
                                 />
                             </>
                         )}
                         <select
                             value={form.status}
                             onChange={(e) => setForm({ ...form, status: e.target.value })}
-                            className="w-full p-2 border rounded mb-3"
+                            className="w-full p-2 border rounded mb-3 text-sm"
                         >
                             <option>Pending</option>
                             <option>In Transit</option>
@@ -166,7 +166,7 @@ export default function AdminShipments() {
                             <option>Collected</option>
                             <option>Canceled</option>
                         </select>
-                        <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
+                        <button type="submit" className="w-full md:w-auto bg-green-600 text-white px-4 py-2 rounded text-sm">
                             {editingId ? "Update Status" : "Create"}
                         </button>
                     </form>
@@ -175,36 +175,37 @@ export default function AdminShipments() {
                 {loading ? (
                     <p>Loading...</p>
                 ) : (
-                    <table className="w-full border-collapse border">
-                        <thead className="bg-gray-200">
-                            <tr>
-                                <th className="border p-2">Tracking #</th>
-                                <th className="border p-2">Sender</th>
-                                <th className="border p-2">Receiver</th>
-                                <th className="border p-2">Status</th>
-                                <th className="border p-2">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {shipments.map((shipment) => (
-                                <tr key={shipment._id} className="hover:bg-gray-100">
-                                    <td className="border p-2">{shipment.trackingNumber}</td>
-                                    <td className="border p-2">{shipment.senderName}</td>
-                                    <td className="border p-2">{shipment.receiverName}</td>
-                                    <td className="border p-2">{shipment.status}</td>
-                                    <td className="border p-2 space-x-2">
-                                        <button
-                                            onClick={() => handleEdit(shipment)}
-                                            className="bg-blue-600 text-white px-3 py-1 rounded text-sm"
-                                        >
-                                            Edit
-                                        </button>
-                                        {/* Delete removed - unsupported by API */}
-                                    </td>
+                    <div className="overflow-x-auto">
+                        <table className="w-full border-collapse border text-sm">
+                            <thead className="bg-gray-200">
+                                <tr>
+                                    <th className="border p-2">Tracking #</th>
+                                    <th className="border p-2">Sender</th>
+                                    <th className="border p-2 hidden md:table-cell">Receiver</th>
+                                    <th className="border p-2">Status</th>
+                                    <th className="border p-2">Actions</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {shipments.map((shipment) => (
+                                    <tr key={shipment._id} className="hover:bg-gray-100">
+                                        <td className="border p-2 font-semibold text-xs md:text-sm">{shipment.trackingNumber}</td>
+                                        <td className="border p-2 text-xs md:text-sm">{shipment.senderName}</td>
+                                        <td className="border p-2 hidden md:table-cell text-xs md:text-sm">{shipment.receiverName}</td>
+                                        <td className="border p-2 text-xs md:text-sm">{shipment.status}</td>
+                                        <td className="border p-2 space-x-1">
+                                            <button
+                                                onClick={() => handleEdit(shipment)}
+                                                className="bg-blue-600 text-white px-2 md:px-3 py-1 rounded text-xs"
+                                            >
+                                                Edit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 )}
             </div>
         </div>
