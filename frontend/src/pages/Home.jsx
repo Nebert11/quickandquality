@@ -9,7 +9,7 @@ function Home () {
         <div>
             <section className="relative left-1/2 -translate-x-1/2 w-screen bg-maroon min-h-[90vh] flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <img src={heroImage} className="w-full h-full obkject-cover" />
+                    <img src={heroImage} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-red-900 opacity-90"></div>
                 </div>
                 {/* Main content*/}

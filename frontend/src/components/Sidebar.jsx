@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Sidebar() {
     return (
-        <aside className="bg-maroon text-white h-screen p-6">
+        <aside className="bg-maroon text-white min-h-screen w-64 p-6 sticky top-24 self-start shrink-0 rounded-r-xl shadow-lg">
             <h2 className="text-2xl font-bold mb-8">Admin Panel</h2>
             <nav className="flex flex-col space-y-4">
                 <Link to="/admin/dashboard" className="hover:text-gray-300">Dashboard</Link>

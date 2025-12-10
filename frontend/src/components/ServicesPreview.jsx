@@ -1,30 +1,10 @@
 import { useEffect, useState } from "react";
 import API from "../api";
-import { ShoppingCart, Zap, FileCheck, Globe } from "lucide-react";
+import { ShoppingCart, Zap, FileCheck, Globe, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "./ui/card";
 
 function ServicesPreview () {
-    // const [services, setServices] = useState([]); 
-
-    // {/* Fetch Services from the backend */}
-    // useEffect(() => {
-    //     const fetchServices = async () => {
-    //         const { data } = await API.get("/services");
-    //         setServices(data);
-    //     };
-    //     fetchServices();
-    // }, []);
-
-    // // Icon selection based on service title (fallback to Package)
-    // const getIcon = (title) => {
-    //     if (!title) return Package;
-    //     const t = title.toLowerCase();
-    //     if (t.includes("express") || t.includes("delivery")) return Truck;
-    //     if (t.includes("insurance") || t.includes("secure")) return ShieldCheck;
-    //     if (t.includes("international") || t.includes("global")) return Globe2;
-    //     return Package;
-    // };
 
     const services = [
         {
@@ -42,11 +22,11 @@ function ServicesPreview () {
             "Urgent deliveries within the city with guaranteed same-day service.",
         },
         {
-          key: "ecommerce",
-          Icon: ShoppingCart,
-          title: "E-commerce Fulfillment",
+          key: "moving",
+          Icon: Truck,
+          title: "Home/Office Moving",
           description:
-            "Complete order fulfillment solutions for your online business needs.",      
+            "Reliable and stress-free moving services for homes & offices across Nairobi and Kenya—covering packing, loading, & safe delivery.",      
         },
         {
           key: "customs",

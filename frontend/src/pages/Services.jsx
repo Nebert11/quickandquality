@@ -1,7 +1,10 @@
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "../components/ui/card";
+import image1 from "../assets/1.jpg";
+import image2 from "../assets/2.jpg";
+import image3 from "../assets/3.jpg";
+import image4 from "../assets/4.jpg";
+import image5 from "../assets/5.jpg";
 import {
   Clock,
   Globe,
@@ -28,31 +31,33 @@ const Services = () => {
         "Real-time tracking",
         "Insurance coverage",
       ],
+      
     },
     {
       key: "same-day",
       Icon: Zap,
       title: "Same-Day Delivery (Nairobi)",
       description:
-        "Ultra-fast delivery within Nairobi and surrounding areas. Get your packages delivered on the same day. 3-Hour Express Downtown Coverage Priority Handling",
+        "Ultra-fast delivery within Nairobi and surrounding areas. Get your packages delivered on the same day.",
       features: [
         "Pick up within 2 hours",
         "Delivery within 24 hours",
         "Live GPS tracking",
         "Priority handling",
       ],
+      
     },
     {
-      key: "ecommerce",
-      Icon: ShoppingCart,
-      title: "E-commerce Fulfillment",
+      key: "moving",
+      Icon: Truck,
+      title: "Home/Office Moving",
       description:
-        "Order fulfillment solutions with warehousing and last-mile delivery.",      
+        "Reliable and stress-free moving services for homes & offices across Nairobi and Kenya—covering packing, loading, & safe delivery.",      
       features: [
-        "Inventory management",
-        "Order processing",
-        "Returns handling",
-        "Multi-channel integration",
+        "Professional packing & wrapping",
+        "Safe loading and unloading",
+        "Secure transportation",
+        "Furniture disassembly & reassembly",
       ],
     },
     {
@@ -67,6 +72,7 @@ const Services = () => {
           "Compliance support",
           "Expedited processing",
       ],
+      
     },
   ];
 
@@ -93,6 +99,14 @@ const Services = () => {
     },
   ];
 
+  const galleryImages = [
+    { src: image1, alt: "Fleet 1", caption: "Fleet & Vehicles" },
+    { src: image2, alt: "Fleet 2", caption: "Same-day Delivery" },
+    { src: image3, alt: "Operations 1", caption: "Fulfillment Center" },
+    { src: image4, alt: "Operations 2", caption: "Customs & Docs" },
+    { src: image5, alt: "Operations 3", caption: "Packing & Dispatch" },
+  ];
+
   return (
     <div className="min-h-screen">
       <main className="pt-20">
@@ -108,39 +122,74 @@ const Services = () => {
             </div>
           </div>
         </section>
-
+        
         {/* MAIN SERVICES */}
-        <section className="py-20 ">
+        <section className="py-20 "> 
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
               {services.map((service) => (
                 <Card
                   key={service.key}
-                  className="hover-lift shadow-elegant border-border"
+                  className="relative w-full group h-[350px] rounded-xl overflow-hidden cursor-pointer shadow-lg"
                 >
-                  <CardContent className="p-8">
-                    <div className="w-16 h-16 rounded-xl bg-red-50 flex items-center justify-center mt-4 mb-4">
-                      <service.Icon className="h-8 w-8 text-red-900 " />
-                    </div>
-                    
-                    <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
+                  <CardContent className="relative w-full h-full rounded-xl overflow-hidden shadow-lg">
+                    <div className="absolute inset-0 z-10 bg-gray-100 group-hover:bg-opacity-50 transition-all duration-500"></div>
+                    <div className="relative z-20 p-5 text-black">
+                      <div className="w-16 h-16 rounded-xl bg-red-50 flex items-center justify-center mt-8 mb-4">
+                        <service.Icon className="h-8 w-8 text-red-900 " />
+                      </div>
+                      
+                      <h3 className="text-2xl text-red-950 font-bold mb-2">{service.title}</h3>
 
-                    <p className="text-gray-500 mb-6 leading-relaxed">
-                      {service.description}
-                    </p>
-                    {service.features && (
-                      <div className="space-y-2">
-                      {service.features.map((feature, i) => (
-                        <div key={feature} className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-red-900 mt-2 flex-shrink-0"></div>
-                          <span className="">{feature}</span>
-                        </div>
-                      ))}
+                      <p className="text-red-800 mb-3 leading-relaxed">
+                        {service.description}
+                      </p>
+                      {service.features && (
+                        <div className="space-y-1 text-sm">
+                        {service.features.map((feature, i) => (
+                          <div key={feature} className="flex items-start gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-red-900 mt-2 shrink-0"></div>
+                            <span className="">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                      )}
                     </div>
-                    )}
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Gallery*/}
+        <section className="py-12">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-6 text-center">Gallery</h2>
+            <p className="text-center text-gray-500 mb-8 max-w-2xl mx-auto">A few shots of our fleet and operations.</p>
+
+            <div className="max-w-6xl mx-auto">
+              {/* Marquee / continuous slideshow */}
+              <style>{`
+                .qaq-marquee { overflow: hidden; }
+                .qaq-marquee__inner { display: flex; gap: 1.5rem; align-items: center; }
+                @keyframes qaq-scroll-left {
+                  0% { transform: translateX(0); }
+                  100% { transform: translateX(-50%); }
+                }
+                .qaq-marquee__inner { animation: qaq-scroll-left 20s linear infinite; }
+                .qaq-marquee:hover .qaq-marquee__inner, .qaq-marquee:focus-within .qaq-marquee__inner { animation-play-state: paused; }
+              `}</style>
+
+              <div className="qaq-marquee relative">
+                <div className="qaq-marquee__inner">
+                  {galleryImages.concat(galleryImages).map((g, i) => (
+                    <figure key={i} className="shrink-0 rounded-lg overflow-hidden shadow-md" tabIndex={0}>
+                      <img src={g.src} alt={g.alt} className="h-48 w-auto object-cover block" />
+                    </figure>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>

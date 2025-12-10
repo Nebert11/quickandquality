@@ -8,7 +8,7 @@ export default function AdminShipments() {
     const [showForm, setShowForm] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const [form, setForm] = useState({
-        trackingNumber: "",
+        // trackingNumber is generated server-side, don't send from client
         senderName: "",
         receiverName: "",
         origin: "",
@@ -36,14 +36,15 @@ export default function AdminShipments() {
         e.preventDefault();
         try {
             if (editingId) {
+                // editingId holds the trackingNumber
                 await API.put(`/shipments/${editingId}/status`, { status: form.status });
                 alert("Shipment status updated!");
             } else {
+                // create shipment - server will generate a trackingNumber
                 await API.post("/shipments", form);
                 alert("Shipment created!");
             }
             setForm({
-                trackingNumber: "",
                 senderName: "",
                 receiverName: "",
                 origin: "",
@@ -55,25 +56,27 @@ export default function AdminShipments() {
             setShowForm(false);
             fetchShipments();
         } catch (error) {
-            alert("Error: " + error.response?.data?.message || error.message);
+            alert("Error: " + (error.response?.data?.message || error.message));
         }
     };
 
+    // Deletion is not supported by the backend currently. If needed, implement
+    // a DELETE /shipments/:trackingNumber route on the server and re-enable.
     const handleDelete = async (id) => {
-        if (window.confirm("Delete this shipment?")) {
-            try {
-                await API.delete(`/shipments/${id}`);
-                alert("Shipment deleted!");
-                fetchShipments();
-            } catch (error) {
-                alert("Failed to delete: " + error.message);
-            }
-        }
+        alert("Delete is not supported by the API.");
     };
 
     const handleEdit = (shipment) => {
-        setForm(shipment);
-        setEditingId(shipment._id);
+        // We only allow editing the status via trackingNumber
+        setForm({
+            senderName: shipment.senderName || "",
+            receiverName: shipment.receiverName || "",
+            origin: shipment.origin || "",
+            destination: shipment.destination || "",
+            status: shipment.status || "Pending",
+            estimatedDelivery: shipment.estimatedDelivery ? shipment.estimatedDelivery.split("T")[0] : "",
+        });
+        setEditingId(shipment.trackingNumber);
         setShowForm(true);
     };
 
@@ -195,12 +198,7 @@ export default function AdminShipments() {
                                         >
                                             Edit
                                         </button>
-                                        <button
-                                            onClick={() => handleDelete(shipment._id)}
-                                            className="bg-red-600 text-white px-3 py-1 rounded text-sm"
-                                        >
-                                            Delete
-                                        </button>
+                                        {/* Delete removed - unsupported by API */}
                                     </td>
                                 </tr>
                             ))}

@@ -3,8 +3,7 @@ import API from "../api";
 import { Card, CardContent } from "../components/ui/card";
 import {
     Search,
-    ClipboardList,
-    PackageCheck,
+    ClipboardList, 
     Truck,
     CheckCircle2,
 } from "lucide-react";

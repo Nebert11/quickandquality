@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import heroImage from "../assets/hero-courier.jpg";
+import logo from "../assets/logo.svg";
 
 export default function Login () {
     const [form, setForm] = useState({ email: "", password: "" });
@@ -32,34 +33,54 @@ export default function Login () {
     };
 
     return (
-        <section className="flex flex-col items-center h-screen justify-center left-0 right-0">
-            <div className="bg-red-50 p-6 rounded-lg">
-                <form onSubmit={handleSubmit}
-                className="space-y-4">
-                    <h2 className="font-bold text-3xl text-center text-maroon-700 mb-6">Login</h2>
-
-                    <input 
-                        type="email" 
-                        placeholder="Email" 
-                        className="w-full p-2 border rounded"
-                        value={form.email}
-                        onChange={(e) => setForm({ ...form, email: e.target.value })} 
-                    />
-
-                    <input 
-                        type="password" 
-                        placeholder="Password" 
-                        className="w-full p-2 border rounded mt-2"
-                        value={form.password}
-                        onChange={(e) => setForm({ ...form, password: e.target.value })} 
-                    />
-
-                    <button className="w-full bg-maroon text-white p-2 rounded hover:bg-maroon-800 mt-2">Login</button>
-
-                    {message && <p className="text-center mt-4 text-gray-600">{message}</p>}
-                </form>
+        <main className="relative left-1/2 -translate-x-1/2 w-screen min-h-[90vh] items-center overflow-hidden">
+            <div className="absolute inset-0 z-0">
+                <img src={heroImage} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-red-900 opacity-90"></div>
             </div>
-        </section>
-        
+            
+            <section className="container mx-auto relative z-10 justify-center items-center flex h-screen">
+
+                <div className="bg-white/20 p-6 rounded-lg flex gap-10 shadow-2xl shadow-red-950">
+                    <div className="p-6">
+                        <img src={logo} className="h-12 w-auto transition-transform duration-300 group-hover:scale-105" />
+                        <h2 className="font-bold text-white mt-6 text-5xl ">Welcome!</h2>
+                        <p className="font-bold text-3xl text-white mt-6">_____</p>
+                        <div className="mt-8">
+                            <p>Welcome to Quick and Quality. Login to access the admin dashboard!</p>
+                        </div>
+                        
+                    </div>
+
+                    <div className="h-full w-[50vh] mx-auto">
+                        <form onSubmit={handleSubmit}
+                            className="space-y-4">
+                            <h2 className="font-bold text-3xl text-center text-white mb-6">Login</h2>
+
+                            <p className="text-white/90 font-semibold text-sm mb-0">Email</p>
+                            <input 
+                                type="email" 
+                                className="bg-white/30 w-full p-2 rounded-lg"
+                                value={form.email}
+                                onChange={(e) => setForm({ ...form, email: e.target.value })} 
+                            />
+
+                            <p className="text-white/90 font-semibold text-sm mb-0">Password</p>
+                            <input 
+                                type="password" 
+                                className="bg-white/30 w-full p-2 rounded-lg"
+                                value={form.password}
+                                onChange={(e) => setForm({ ...form, password: e.target.value })} 
+                            />
+
+                            <button className="w-full bg-maroon text-white p-2 rounded-full hover:bg-maroon-800 mt-2">Login</button>
+
+                            {message && <p className="text-center mt-4 text-gray-600">{message}</p>}
+                        </form>
+                    </div>
+                    
+                </div>
+            </section>
+        </main> 
     )
 }

@@ -15,7 +15,7 @@ import AdminContacts from "./pages/admin/AdminContacts";
 import AdminTestimonials from "./pages/admin/AdminTestimonials";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
-import ServicesPreview from "./components/ServicesPreview";
+import About from "./pages/About";
 
 function App() {
     return (
@@ -34,6 +34,7 @@ function App() {
                         <Route path="/admin/shipments" element={<ProtectedRoute><AdminShipments /></ProtectedRoute>} />
                         <Route path="/admin/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
                         <Route path="/admin/users" element={<ProtectedRoute><AdminUsers /></ProtectedRoute>} />
+                        <Route path="/about" element={<About />} />
                         <Route path="/admin/contacts" element={<ProtectedRoute><AdminContacts /></ProtectedRoute>} />
                         <Route path="/admin/testimonials" element={<ProtectedRoute><AdminTestimonials /></ProtectedRoute>} />
                     </Routes>

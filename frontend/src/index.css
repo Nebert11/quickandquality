@@ -3,6 +3,7 @@
 .text-maroon { color: #800000; }
 .bg-maroon { background-color: #800000; }
 .border-border { border: 0 0% 90%;}
+.hover-lift { @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-hover)] }
 .shadow-elegant { 
     box-shadow: 0 4px 20px -2px hsl(0, 100%, 25% / 0.15);
 }
