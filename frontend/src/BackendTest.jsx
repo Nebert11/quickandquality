@@ -4,7 +4,8 @@ export default function BackendTest() {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        fetch ("http://localhost:5000/api")
+        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+        fetch (`${apiBaseUrl}`)
         .then((res) => res.json())
         .then((data) => setMessage(data.message))
         .catch((err) => console.error("Error:", err));
