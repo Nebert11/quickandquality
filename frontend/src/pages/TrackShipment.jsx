@@ -6,6 +6,7 @@ import {
     ClipboardList, 
     Truck,
     CheckCircle2,
+    Package,
 } from "lucide-react";
 
 export default function TrackShipment() {
@@ -54,26 +55,40 @@ export default function TrackShipment() {
         const baseSteps = [
             {
                 status: "Pending",
-                title: "Shipment Created",
+                title: "Pending",
                 description: "We've received the shipment details and created the order.",
                 icon: ClipboardList,
+                color: "bg-red-600",
+                lineColor: "bg-red-600",
             },
             {
                 status: "In Transit",
                 title: "In Transit",
                 description: "Your shipment is moving through our logistics network.",
                 icon: Truck,
+                color: "bg-orange-600",
+                lineColor: "bg-orange-600",
             },
             {
                 status: "Delivered",
                 title: "Delivered",
                 description: "The shipment has arrived at its final destination.",
                 icon: CheckCircle2,
+                color: "bg-green-600",
+                lineColor: "bg-green-600",
+            },
+            {
+                status: "Collected",
+                title: "Collected",
+                description: "You have successfully collected your parcel.",
+                icon: Package,
+                color: "bg-blue-600",
+                lineColor: "bg-blue-600",
             },
         ];
 
         if (!shipment?.status) {
-            return baseSteps.map((step) => ({ ...step, completed: false }));
+            return baseSteps.map((step) => ({ ...step, completed: false, inactive: true }));
         }
 
         const statusIndex = baseSteps.findIndex((step) => step.status === shipment.status);
@@ -81,6 +96,7 @@ export default function TrackShipment() {
         return baseSteps.map((step, index) => ({
             ...step,
             completed: statusIndex >= index && shipment.status !== "Canceled",
+            inactive: statusIndex < index,
         }));
     }, [shipment]);
 
@@ -205,10 +221,12 @@ export default function TrackShipment() {
                                 <div key={step.status} className="flex gap-4">
                                 <div className="flex flex-col items-center">
                                     <div
-                                    className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                                    className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold ${
                                         step.completed
-                                        ? "bg-primary text-primary-foreground"
-                                        : "bg-muted text-muted-foreground"
+                                        ? step.color
+                                        : step.inactive 
+                                        ? "bg-gray-300"
+                                        : step.color
                                     }`}
                                     >
                                     <step.icon className="h-6 w-6" />
@@ -216,7 +234,7 @@ export default function TrackShipment() {
                                     {index < progressSteps.length - 1 && (
                                     <div
                                         className={`w-0.5 h-16 ${
-                                        step.completed ? "bg-primary" : "bg-muted"
+                                        step.completed ? step.lineColor : "bg-gray-300"
                                         }`}
                                     ></div>
                                     )}

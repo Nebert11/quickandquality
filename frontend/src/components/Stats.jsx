@@ -29,7 +29,7 @@ const Stats = () => {
     ];
 
     return (
-        <section className="py-20 bg-gray-100 w-screen relative left-1/2 -translate-x-1/2">
+        <section className="py-20 w-screen relative left-1/2 -translate-x-1/2">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {stats.map((stats, index) => (

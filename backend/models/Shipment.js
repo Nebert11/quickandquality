@@ -6,7 +6,7 @@ const shipmentSchema = mongoose.Schema({
     receiverName: String,
     origin: String,
     destination: String,
-    status: { type: String, enum: [ "Pending", "In Transit", "Delivered", "Canceled" ], default: "Pending" },
+    status: { type: String, enum: [ "Pending", "In Transit", "Delivered", "Collected", "Canceled" ], default: "Pending" },
     estimatedDelivery: Date,
     details: String
 }, { timestamps: true });

@@ -163,6 +163,7 @@ export default function AdminShipments() {
                             <option>Pending</option>
                             <option>In Transit</option>
                             <option>Delivered</option>
+                            <option>Collected</option>
                             <option>Canceled</option>
                         </select>
                         <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">

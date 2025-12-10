@@ -43,7 +43,7 @@ export const updateShipmentStatus = async (req, res) => {
         }
 
         // Validate allowed statuses (match model enum)
-        const allowed = ["Pending", "In Transit", "Delivered", "Canceled"];
+        const allowed = ["Pending", "In Transit", "Delivered", "Collected", "Canceled"];
         if (!allowed.includes(status)) {
             return res.status(400).json({ message: `Invalid status. Allowed: ${allowed.join(', ')}` });
         }

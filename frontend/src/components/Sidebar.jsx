@@ -7,9 +7,8 @@ export default function Sidebar() {
             <nav className="flex flex-col space-y-4">
                 <Link to="/admin/dashboard" className="hover:text-gray-300">Dashboard</Link>
                 <Link to="/admin/shipments" className="hover:text-gray-300">Shipments</Link>
-                <Link to="/admin/services" className="hover:text-gray-300">Services</Link>
                 <Link to="/admin/users" className="hover:text-gray-300">Users</Link>
-                <Link to="/admin/contacts" className="hover:text-gray-300">Contacts</Link>
+                <Link to="/admin/contacts" className="hover:text-gray-300">Messages</Link>
                 <Link to="/admin/testimonials" className="hover:text-gray-300">Testimonials</Link>
             </nav>
         </aside>

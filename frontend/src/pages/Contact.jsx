@@ -33,6 +33,7 @@ export default function Contact () {
         try {
             // Send email to business if EmailJS is configured
             if (EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID) {
+                // Send email to business
                 await emailjs.send(
                     EMAILJS_SERVICE_ID,
                     EMAILJS_TEMPLATE_ID,
@@ -45,12 +46,26 @@ export default function Contact () {
                         reply_to: form.email,
                     }
                 );
+
+                // Send auto-reply to client
+                await emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    EMAILJS_TEMPLATE_ID,
+                    {
+                        to_email: form.email,
+                        client_name: form.name,
+                        client_email: form.email,
+                        client_phone: form.phone,
+                        client_message: "Thank you for contacting Quick and Quality Shipping Services. We have received your inquiry and will respond within 24 hours.",
+                        reply_to: "quickandquality20@gmail.com",
+                    }
+                );
             }
 
             // Save contact to backend
             const { data } = await API.post("/contact", form);
             
-            setSuccess("✓ Message sent successfully! We'll get back to you within 24 hours.");
+            setSuccess("✓ Message sent successfully! Check your email for confirmation. We'll get back to you within 24 hours.");
             setForm({ name: "", email: "", phone: "", message: "" });
 
             // Clear success message after 5 seconds

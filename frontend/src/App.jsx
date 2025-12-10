@@ -9,7 +9,7 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminShipments from "./pages/admin/AdminShipments";
-import AdminServices from "./pages/admin/AdminServices";
+// import AdminServices from "./pages/admin/AdminServices";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminContacts from "./pages/admin/AdminContacts";
 import AdminTestimonials from "./pages/admin/AdminTestimonials";
@@ -32,7 +32,7 @@ function App() {
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                         <Route path="/admin/shipments" element={<ProtectedRoute><AdminShipments /></ProtectedRoute>} />
-                        <Route path="/admin/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
+                        {/* <Route path="/admin/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} /> */}
                         <Route path="/admin/users" element={<ProtectedRoute><AdminUsers /></ProtectedRoute>} />
                         <Route path="/about" element={<About />} />
                         <Route path="/admin/contacts" element={<ProtectedRoute><AdminContacts /></ProtectedRoute>} />
