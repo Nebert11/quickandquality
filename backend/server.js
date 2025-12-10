@@ -23,6 +23,7 @@ const corsOptions = {
     "http://127.0.0.1:3000",
     "https://quickandquality.onrender.com",
     "https://www.quickandquality.onrender.com",
+    "https://quickandquality.netlify.app",
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
