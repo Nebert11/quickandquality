@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import emailjs from "@emailjs/browser";
 import API from "../api";
 import { Clock, MapPin, Mail, Phone } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
 
+// Initialize EmailJS with your public key from environment
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+
+if (EMAILJS_PUBLIC_KEY) {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+}
+
 export default function Contact () {
     const [form, setForm] = useState({ name: "", email: "", phone: "", message: ""});
     const [success, setSuccess] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -14,23 +26,55 @@ export default function Contact () {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { data } = await API.post("/contact", form);
-        setSuccess(data.message);
-        setForm({ name: "", email: "", phone: "", message: "" });
+        setLoading(true);
+        setError("");
+        setSuccess("");
+
+        try {
+            // Send email to business if EmailJS is configured
+            if (EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID) {
+                await emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    EMAILJS_TEMPLATE_ID,
+                    {
+                        to_email: "quickandquality20@gmail.com",
+                        client_name: form.name,
+                        client_email: form.email,
+                        client_phone: form.phone,
+                        client_message: form.message,
+                        reply_to: form.email,
+                    }
+                );
+            }
+
+            // Save contact to backend
+            const { data } = await API.post("/contact", form);
+            
+            setSuccess("✓ Message sent successfully! We'll get back to you within 24 hours.");
+            setForm({ name: "", email: "", phone: "", message: "" });
+
+            // Clear success message after 5 seconds
+            setTimeout(() => setSuccess(""), 5000);
+        } catch (err) {
+            console.error("Error:", err);
+            setError("Failed to send message. Please try again or contact us directly.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const contactInfo = [
         {
             icon: Phone,
             title: "Phone",
-            content: "+2547-12-345-678",
-            link: "tel:+254712345678",
+            content: "+254790814158",
+            link: "tel:+254790814158",
         },
         {
             icon: Mail,
             title: "Email",
-            content: "info@quickandquality.com",
-            link: "mailto:info@quickandquality.com",
+            content: "quickandquality20@gmail.com",
+            link: "mailto:quickandquality20@gmail.com",
         },
         {
             icon: MapPin,
@@ -47,36 +91,6 @@ export default function Contact () {
     ];
 
     return (
-        //max-w-2xl mx-auto
-        // <div className="py-20 bg-gray-50 min-h-screen">
-        //     <div className="text-3xl font-bold mb-6 text-center mx-auto px-6">
-        //         <h2>Get In Touch</h2>
-        //         <p className="text-lg font-normal">Have a question? We are here to help.</p>
-        //     </div>
-            
-        //     <h3 className="text-2xl font-bold tex-gray-900 mb-6 text-center">Send Us a Message</h3>
-        //     <div className="grid lg:grid-cols-2 max-w-6xl mx-auto items-center justify-center">
-        //         <form onSubmit={handleSubmit} className="space-y-4"> 
-        //             {["name", "email", "phone", "message"].map((field) => (
-        //                 <input
-        //                     key={field}
-        //                     type={field === "email" ? "email" : field === "phone" ? "tel" : "text"}
-        //                     name={field}
-        //                     placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-        //                     value={form[field]}
-        //                     onChange={handleChange}
-        //                     className="border p-2 w-full mb-3"
-        //                     required
-        //                 />
-        //             ))}
-        //             <button className="bg-maroon text-white px-4 py-2 rounded w-full">Send Message</button>
-        //         </form>
-        //         {success && <p className="text-green-600 mt-3 text-center font-semibold">{success}</p>}
-        //     </div>
-            
-        // </div>
-
-
         <div className="min-h-screen">
             <main className="pt-20 bg-[linear-gradient(135deg,hsl(0,100%,20%)_0%,hsl(0,100%,30%)_100%">
                 <section className="py-20 bg text">
@@ -199,15 +213,22 @@ export default function Contact () {
 
                                     <button 
                                         type="submit"
-                                        className="bg-red-900 text-white text-lg font-bold rounded-xl px-4 py-3 w-full disabled:opacity-80"
+                                        disabled={loading}
+                                        className="bg-red-900 text-white text-lg font-bold rounded-xl px-4 py-3 w-full disabled:opacity-60 disabled:cursor-not-allowed transition"
                                     >
-                                        Send Message
+                                        {loading ? "Sending..." : "Send Message"}
                                     </button>
                                 </form>
 
                                 {success && (
                                     <p className="text-green-600 mt-4 text-center font-semibold">
                                         {success}
+                                    </p>
+                                )}
+
+                                {error && (
+                                    <p className="text-red-600 mt-4 text-center font-semibold">
+                                        {error}
                                     </p>
                                 )}
                             </CardContent>
