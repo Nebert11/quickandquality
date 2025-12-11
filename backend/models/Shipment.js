@@ -8,7 +8,8 @@ const shipmentSchema = mongoose.Schema({
     destination: String,
     status: { type: String, enum: [ "Pending", "In Transit", "Delivered", "Collected", "Canceled" ], default: "Pending" },
     estimatedDelivery: Date,
-    details: String
+    details: String,
+    cost: { type: Number, default: 0 }
 }, { timestamps: true });
 
 export default mongoose.model("Shipment", shipmentSchema);

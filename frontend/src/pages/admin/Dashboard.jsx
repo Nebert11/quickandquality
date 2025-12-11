@@ -7,6 +7,8 @@ export default function Dashboard() {
         totalShipments: 0,
         activeUsers: 0,
         pendingDeliveries: 0,
+        inTransitShipments: 0,
+        deliveredShipments: 0,
         newMessages: 0,
         loading: true,
         error: null
@@ -25,6 +27,8 @@ export default function Dashboard() {
             const allShipments = shipmentsRes.data;
             const totalShipments = allShipments.length;
             const pendingDeliveries = allShipments.filter(s => s.status === "Pending").length;
+            const inTransitShipments = allShipments.filter(s => s.status === "In Transit").length;
+            const deliveredShipments = allShipments.filter(s => s.status === "Delivered").length;
 
             // Fetch all contacts (messages)
             const contactsRes = await API.get("/contact");
@@ -34,6 +38,8 @@ export default function Dashboard() {
                 totalShipments,
                 activeUsers: 0, // Will be updated if we have a user count endpoint
                 pendingDeliveries,
+                inTransitShipments,
+                deliveredShipments,
                 newMessages,
                 loading: false,
                 error: null
@@ -61,7 +67,7 @@ export default function Dashboard() {
                     </div>
                 )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-6">
                     <div className="bg-white shadow p-4 md:p-6 rounded">
                         <h2 className="text-lg md:text-xl font-bold text-gray-800">Total Shipments</h2>
                         <p className="text-gray-600 text-2xl md:text-3xl font-semibold mt-2">
@@ -70,16 +76,30 @@ export default function Dashboard() {
                     </div>
 
                     <div className="bg-white shadow p-4 md:p-6 rounded">
-                        <h2 className="text-lg md:text-xl font-bold text-gray-800">Active Users</h2>
-                        <p className="text-gray-600 text-2xl md:text-3xl font-semibold mt-2">
-                            {stats.loading ? "..." : stats.activeUsers}
+                        <h2 className="text-lg md:text-xl font-bold text-gray-800">Pending Deliveries</h2>
+                        <p className="text-yellow-600 text-2xl md:text-3xl font-semibold mt-2">
+                            {stats.loading ? "..." : stats.pendingDeliveries}
                         </p>
                     </div>
 
                     <div className="bg-white shadow p-4 md:p-6 rounded">
-                        <h2 className="text-lg md:text-xl font-bold text-gray-800">Pending Deliveries</h2>
+                        <h2 className="text-lg md:text-xl font-bold text-gray-800">In Transit</h2>
+                        <p className="text-blue-600 text-2xl md:text-3xl font-semibold mt-2">
+                            {stats.loading ? "..." : stats.inTransitShipments}
+                        </p>
+                    </div>
+
+                    <div className="bg-white shadow p-4 md:p-6 rounded">
+                        <h2 className="text-lg md:text-xl font-bold text-gray-800">Delivered</h2>
+                        <p className="text-green-600 text-2xl md:text-3xl font-semibold mt-2">
+                            {stats.loading ? "..." : stats.deliveredShipments}
+                        </p>
+                    </div>
+
+                    <div className="bg-white shadow p-4 md:p-6 rounded">
+                        <h2 className="text-lg md:text-xl font-bold text-gray-800">Active Users</h2>
                         <p className="text-gray-600 text-2xl md:text-3xl font-semibold mt-2">
-                            {stats.loading ? "..." : stats.pendingDeliveries}
+                            {stats.loading ? "..." : stats.activeUsers}
                         </p>
                     </div>
 

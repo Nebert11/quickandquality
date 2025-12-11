@@ -3,6 +3,7 @@ import emailjs from "@emailjs/browser";
 import API from "../api";
 import { Clock, MapPin, Mail, Phone } from "lucide-react";
 import { Card, CardContent } from "../components/ui/card";
+import LocationMap from "../components/LocationMap";
 
 // Initialize EmailJS with your public key from environment
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -250,6 +251,9 @@ export default function Contact () {
                         </Card>
                     </div>
                 </section>
+
+                {/* Location Map */}
+                <LocationMap />
             </main>
         </div>
     );

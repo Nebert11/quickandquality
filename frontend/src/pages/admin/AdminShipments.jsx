@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import API from "../../api";
 import Sidebar from "../../components/Sidebar";
 
@@ -15,6 +16,7 @@ export default function AdminShipments() {
         destination: "",
         status: "Pending",
         estimatedDelivery: "",
+        cost: "",
     });
 
     useEffect(() => {
@@ -51,6 +53,7 @@ export default function AdminShipments() {
                 destination: "",
                 status: "Pending",
                 estimatedDelivery: "",
+                cost: "",
             });
             setEditingId(null);
             setShowForm(false);
@@ -75,9 +78,15 @@ export default function AdminShipments() {
             destination: shipment.destination || "",
             status: shipment.status || "Pending",
             estimatedDelivery: shipment.estimatedDelivery ? shipment.estimatedDelivery.split("T")[0] : "",
+            cost: shipment.cost || "",
         });
         setEditingId(shipment.trackingNumber);
         setShowForm(true);
+    };
+
+    const generateTrackingNumber = () => {
+        const trackingNumber = `QQ-${uuidv4().split("-")[0].toUpperCase()}`;
+        setForm({ ...form, trackingNumber });
     };
 
     return (
@@ -98,6 +107,7 @@ export default function AdminShipments() {
                                 destination: "",
                                 status: "Pending",
                                 estimatedDelivery: "",
+                                cost: "",
                             });
                         }}
                         className="w-full md:w-auto bg-red-700 text-white px-4 py-2 rounded"
@@ -111,14 +121,25 @@ export default function AdminShipments() {
                         <h2 className="text-lg md:text-xl font-bold mb-4">{editingId ? "Edit Status" : "Create Shipment"}</h2>
                         {!editingId && (
                             <>
-                                <input
-                                    type="text"
-                                    placeholder="Tracking Number"
-                                    value={form.trackingNumber}
-                                    onChange={(e) => setForm({ ...form, trackingNumber: e.target.value })}
-                                    className="w-full p-2 border rounded mb-3 text-sm"
-                                    required
-                                />
+                                <div className="mb-3">
+                                    <label className="block text-sm font-medium mb-2">Tracking Number</label>
+                                    <div className="flex gap-2">
+                                        <input
+                                            type="text"
+                                            placeholder="Click Generate to create tracking number"
+                                            value={form.trackingNumber}
+                                            readOnly
+                                            className="flex-1 p-2 border rounded text-sm bg-gray-50"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={generateTrackingNumber}
+                                            className="bg-blue-600 text-white px-4 py-2 rounded text-sm font-semibold hover:bg-blue-700 transition"
+                                        >
+                                            Generate
+                                        </button>
+                                    </div>
+                                </div>
                                 <input
                                     type="text"
                                     placeholder="Sender Name"
@@ -153,6 +174,15 @@ export default function AdminShipments() {
                                     onChange={(e) => setForm({ ...form, estimatedDelivery: e.target.value })}
                                     className="w-full p-2 border rounded mb-3 text-sm"
                                 />
+                                <input
+                                    type="number"
+                                    placeholder="Cost (KES)"
+                                    value={form.cost}
+                                    onChange={(e) => setForm({ ...form, cost: e.target.value })}
+                                    className="w-full p-2 border rounded mb-3 text-sm"
+                                    step="0.01"
+                                    min="0"
+                                />
                             </>
                         )}
                         <select
@@ -183,6 +213,7 @@ export default function AdminShipments() {
                                     <th className="border p-2">Sender</th>
                                     <th className="border p-2 hidden md:table-cell">Receiver</th>
                                     <th className="border p-2">Status</th>
+                                    <th className="border p-2 hidden md:table-cell">Cost (KES)</th>
                                     <th className="border p-2">Actions</th>
                                 </tr>
                             </thead>
@@ -193,6 +224,7 @@ export default function AdminShipments() {
                                         <td className="border p-2 text-xs md:text-sm">{shipment.senderName}</td>
                                         <td className="border p-2 hidden md:table-cell text-xs md:text-sm">{shipment.receiverName}</td>
                                         <td className="border p-2 text-xs md:text-sm">{shipment.status}</td>
+                                        <td className="border p-2 hidden md:table-cell text-xs md:text-sm font-semibold">KES {shipment.cost || 0}</td>
                                         <td className="border p-2 space-x-1">
                                             <button
                                                 onClick={() => handleEdit(shipment)}

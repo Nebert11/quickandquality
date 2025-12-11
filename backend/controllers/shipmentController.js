@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 //Create new shipment
 export const createShipment = async (req, res) => {
-    const { senderName, receiverName, origin, destination, estimatedDelivery, details } = req.body;
+    const { senderName, receiverName, origin, destination, estimatedDelivery, details, cost } = req.body;
 
     try {
         const trackingNumber = `QQ-${uuidv4().split("-")[0].toUpperCase()}`;
@@ -15,6 +15,7 @@ export const createShipment = async (req, res) => {
             destination, 
             estimatedDelivery, 
             details,
+            cost: cost || 0,
         });
         res.status(201).json(shipment);
     } catch (error) {
