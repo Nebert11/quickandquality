@@ -68,7 +68,7 @@ const Testimonials = () => {
                                         <Star key={i} className="h-5 w-5 fill-red-900 text-maroon" />
                                     ))}
                                 </div>
-                                <p className="text-black mb-4 italic">{testimonial.content}</p>
+                                <p className="text-black mb-4 italic">{testimonial.message || testimonial.content}</p>
                                 <div>
                                     <p className="font-semibold text-gray-700">{testimonial.clientName || testimonial.name}</p>
                                     <p className="text-sm text-gray-500">{testimonial.company || "Quick & Quality Client"}</p>
