@@ -10,7 +10,7 @@ export default function Sidebar() {
             {/* Mobile Menu Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="fixed top-4 left-4 z-50 md:hidden bg-maroon text-white p-2 rounded-lg"
+                className="fixed h-full top-4 left-4 z-50 md:hidden bg-maroon text-white p-2 rounded-lg"
             >
                 {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
