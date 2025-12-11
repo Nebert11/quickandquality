@@ -23,28 +23,8 @@ const Testimonials = () => {
         setLoading(false);
     };
 
-    const fallbackTestimonials = [
-        {
-            name: "Sarah Omutse",
-            company: "Tech Innovations Inc.",
-            content: "Quick & Quality has transformed our international shipping. Fast, reliable, and excellent customer service every time.",
-            rating: 5,
-        },
-        {
-            name: "Joshua Kabiru",
-            company: "Pioneer Enterprises",
-            content: "Their e-commerce fulfillment service is outstanding. Our customers are happier than ever with the delivery speed.",
-            rating: 4.5,
-        },
-        {
-            name: "Emilly Kabishu",
-            company: "Fashion Boutique Co.",
-            content: "Same-day delivery service is a game-changer for our business. Professional team and seamless process.",
-            rating: 5,
-        },
-    ];
-
-    const displayTestimonials = testimonials.length > 0 ? testimonials : fallbackTestimonials;
+    // Only display testimonials fetched from the API (approved by admin)
+    const displayTestimonials = testimonials;
 
     return (
         <section className="py-20 bg-gray-100 w-screen relative left-1/2 -translate-x-1/2">
@@ -53,6 +33,11 @@ const Testimonials = () => {
                     <h2 className="text-4xl font-bold mb-4">What Our Clients Say</h2>
                     <p className="text-lg text-gray-500 max-w-2xl mx-auto">Trusted by businesses worldwide for reliable logistics solutions</p>
                 </div>
+
+                {/* Show message when no testimonials available */}
+                {!loading && displayTestimonials.length === 0 && (
+                    <p className="text-center text-gray-500 mb-8">No testimonials available yet.</p>
+                )}
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {displayTestimonials.map((testimonial, index) => {
