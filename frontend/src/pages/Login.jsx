@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import heroImage from "../assets/hero-courier.jpg";
-import logo from "../assets/logo.svg";
+import logo from "../assets/logo.png";
 
 export default function Login () {
     const [form, setForm] = useState({ email: "", password: "" });

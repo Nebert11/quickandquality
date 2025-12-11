@@ -24,7 +24,7 @@ export default function Sidebar() {
             )}
 
             {/* Sidebar */}
-            <aside className={`fixed md:sticky top-0 md:top-24 left-0 h-screen md:h-auto z-40 md:z-0 bg-maroon text-white w-64 p-6 md:self-start md:shrink-0 rounded-r-xl shadow-lg transform transition-transform duration-300 ease-in-out ${
+            <aside className={`fixed md:sticky top-0 md:top-24 left-0 h-screen md:h-screen z-40 md:z-0 bg-maroon text-white w-64 p-6 md:self-start md:shrink-0 rounded-r-xl shadow-lg transform transition-transform duration-300 ease-in-out ${
                 isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
             }`}>
                 <h2 className="text-2xl font-bold mb-8">Admin Panel</h2>

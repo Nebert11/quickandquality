@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.svg";
+import logo from "../assets/logo.png";
 import { LogOut, Menu, UserRound, X, ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react"; 
 import { useAuth } from "../context/AuthContext";
