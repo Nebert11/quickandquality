@@ -10,7 +10,9 @@ export default function Sidebar() {
             {/* Mobile Menu Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="fixed h-full top-4 left-4 z-50 md:hidden bg-maroon text-white p-2 rounded-lg"
+                aria-expanded={isOpen}
+                aria-controls="admin-sidebar"
+                className="fixed top-4 left-4 z-50 md:hidden bg-maroon text-white p-2 rounded-lg shadow-md w-auto h-auto"
             >
                 {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -24,7 +26,7 @@ export default function Sidebar() {
             )}
 
             {/* Sidebar */}
-            <aside className={`fixed md:sticky top-0 md:top-24 left-0 h-screen md:h-screen z-40 md:z-0 bg-maroon text-white w-64 p-6 md:self-start md:shrink-0 rounded-r-xl shadow-lg transform transition-transform duration-300 ease-in-out ${
+            <aside id="admin-sidebar" className={`fixed md:sticky top-0 md:top-24 left-0 h-screen md:h-screen z-40 md:z-0 bg-maroon text-white w-64 p-6 md:self-start md:shrink-0 rounded-r-xl shadow-lg transform transition-transform duration-300 ease-in-out ${
                 isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
             }`}>
                 <h2 className="text-2xl font-bold mb-8">Admin Panel</h2>
