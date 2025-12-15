@@ -96,7 +96,7 @@ function Home () {
             {/* Gallery Carousel */}
             <section className="py-8 sm:py-12">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center">Gallery</h2>
+                    <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6 text-center text-shadow-purple-900">Gallery</h2>
                     <p className="text-center text-gray-500 mb-6 sm:mb-8 max-w-2xl mx-auto text-sm sm:text-base">A few shots of our fleet and operations.</p>
 
                     <div className="max-w-6xl mx-auto">
