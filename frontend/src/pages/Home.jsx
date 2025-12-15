@@ -93,7 +93,7 @@ function Home () {
                 <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent z-10"></div>
             </section>
 
-            {/* Gallery Carousel */}
+            {/* Gallery */}
             <section className="py-8 sm:py-12">
                 <div className="container mx-auto px-4">
                     <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6 text-center text-shadow-purple-900">Gallery</h2>
