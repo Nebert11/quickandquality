@@ -7,18 +7,24 @@ import Testimonials from "../components/Testimonials";
 import ServicesPreview from "../components/ServicesPreview"; 
 
 import image1 from "../assets/1.jpg";
-import image2 from "../assets/2.jpg";
-import image3 from "../assets/3.jpg";
-import image4 from "../assets/4.jpg";
-import image5 from "../assets/5.jpg";
+import image2 from "../assets/4.png";
+import image3 from "../assets/5.jpg";
+import image4 from "../assets/moving.png";
+import image5 from "../assets/6.png";
+import image6 from "../assets/3.png";
+import image7 from "../assets/2.png";
+import image8 from "../assets/7.png";
 
 function Home () {
      const galleryImages = [
         { src: image1, alt: "Fleet 1", caption: "Fleet & Vehicles" },
         { src: image2, alt: "Fleet 2", caption: "Same-day Delivery" },
-        { src: image3, alt: "Operations 1", caption: "Fulfillment Center" },
-        { src: image4, alt: "Operations 2", caption: "Customs & Docs" },
+        { src: image3, alt: "Operations 1", caption: "Countrywide Delivery" },
+        { src: image4, alt: "Operations 2", caption: "Office/Home items Moving" },
         { src: image5, alt: "Operations 3", caption: "Packing & Dispatch" },
+        { src: image6},
+        { src: image7},
+        { src: image8},
     ];
 
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
